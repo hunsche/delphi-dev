@@ -21,5 +21,10 @@ RUN curl -L \
     && tar -xzvf /tmp/paserver.tar.gz  \
     && mv PAServer-19.0/* /usr/bin/ \
     && rm -rf PAServer-19.0 /tmp/paserver.tar.gz
-ENTRYPOINT ["paserver", "-password=1234"]
+RUN curl -L \
+    https://github.com/maxcnunes/waitforit/releases/download/v2.2.0/waitforit-linux_amd64 > \
+    /usr/bin/waitforit \
+    && chmod +x /usr/bin/waitforit   
+CMD ["paserver", "-password=$PASERVER_PASSWORD"]
+ENV PASERVER_PASSWORD='1234'
 EXPOSE 64211

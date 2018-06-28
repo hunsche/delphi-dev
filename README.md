@@ -42,11 +42,15 @@ $ mv "$HOME/tmp/docker/docker.exe" "$HOME/bin/docker.exe"
 $ rm -rf "$HOME/tmp/docker" "$HOME/tmp/docker.zip"
 ```
 
+### Environments
+
+  - PASERVER_PASSWORD='1234'
+
 ### Get start
 
 Use git bash to start service.
 
-Create docker-compsoe.yml.
+Create docker-compose.yml simple console.
 
 ```yml
 version: '2.1'
@@ -56,6 +60,39 @@ services:
     image: hunsche/delphi-dev:1.0 
     ports:
       - '64211:64211'
+```
+
+Create docker-compose.yml server.
+
+```yml
+version: '2.1'
+
+services:
+  service:
+    image: hunsche/delphi-dev:1.0 
+    ports:
+      - '8080:8080'
+      - '64211:64211'
+```
+
+Create docker-compose.yml with connection in database.
+
+```yml
+version: '2.1'
+
+services:
+  service:
+    image: hunsche/delphi-dev:1.1
+  ports:
+      - '64211:64211'
+    links:
+      - postgres:postgres
+    entrypoint: ./wait-for-it.sh postgres:5432 -- paserver -password=1234
+
+  postgres:
+    image: postgres:10.4
+    ports:
+      - "5432:5432"
 ```
 
 Open docker-compose.yml folder.

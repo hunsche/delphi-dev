@@ -87,7 +87,7 @@ services:
       - '64211:64211'
     links:
       - postgres:postgres
-    entrypoint: ./wait-for-it.sh postgres:5432 -- paserver -password=1234
+    entrypoint: waitforit -address=tcp://postgres:5432 -timeout=10 -- paserver -password=1234
 
   postgres:
     image: postgres:10.4

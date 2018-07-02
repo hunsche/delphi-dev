@@ -42,13 +42,15 @@ $ mv "$HOME/tmp/docker/docker.exe" "$HOME/bin/docker.exe"
 $ rm -rf "$HOME/tmp/docker" "$HOME/tmp/docker.zip"
 ```
 
-### Environments
-
-  - PASERVER_PASSWORD='1234'
-
 ### Get start
 
 Use git bash to start service.
+
+Execute simple Docker.
+
+```sh
+$ docker run --privileged -d -p 64211:64211 hunsche/delphi-dev:1.3
+```
 
 Create docker-compose.yml simple console.
 
@@ -57,7 +59,8 @@ version: '2.1'
 
 services:
   service:
-    image: hunsche/delphi-dev:1.0 
+    image: hunsche/delphi-dev:1.3
+    privileged: true
     ports:
       - '64211:64211'
 ```
@@ -69,7 +72,8 @@ version: '2.1'
 
 services:
   service:
-    image: hunsche/delphi-dev:1.0 
+    image: hunsche/delphi-dev:1.3
+    privileged: true
     ports:
       - '8080:8080'
       - '64211:64211'
@@ -82,11 +86,12 @@ version: '2.1'
 
 services:
   service:
-    image: hunsche/delphi-dev:1.1
-  ports:
-      - '64211:64211'
+    image: hunsche/delphi-dev:1.3
+    privileged: true
     links:
       - postgres:postgres
+    ports:
+      - '64211:64211'
     entrypoint: waitforit -address=tcp://postgres:5432 -timeout=10 -- paserver -password=1234
 
   postgres:
@@ -100,3 +105,24 @@ Open docker-compose.yml folder.
 ```sh
 $ docker-compose up
 ```
+
+### Custom password
+
+  - default password '1234'
+
+Custom password.
+
+```yml
+version: '2.1'
+
+services:
+    image: hunsche/delphi-dev:1.3
+    privileged: true
+    ports:
+      - '64211:64211'
+    entrypoint: paserver -password=custom-password
+```
+
+### Privileged 
+
+This container needs to be run in privileged mode because the GDB module needs special access to the kernel.

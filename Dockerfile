@@ -31,4 +31,6 @@ RUN curl -L \
     /usr/bin/waitforit \
     && chmod +x /usr/bin/waitforit   
 EXPOSE 64211
+RUN apt-get -y install xterm
+RUN mkdir scrath-dir
 CMD ["/root/PAServer/paserver", "-password=1234"]

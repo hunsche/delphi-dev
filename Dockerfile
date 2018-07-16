@@ -10,6 +10,8 @@ RUN apt-get -y update \
         libcurl3 \
         libcurl4-gnutls-dev \
         xterm \
+        libpq5 \
+    && ln -s /usr/lib/x86_64-linux-gnu/libpq.so.5 /usr/lib/x86_64-linux-gnu/libpq.so \
     && apt-get -y autoremove \
     && apt-get -y autoclean
 ADD . /tmp

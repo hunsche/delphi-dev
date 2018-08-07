@@ -181,3 +181,11 @@ This container needs to be run in privileged mode because the GDB module needs s
   - RAD_SERVER_CONSOLE_PASS: Password of RAD Server Console.
   - RAD_SERVER_CONSOLE_PORT: RAD Server Console Port.
   - RAD_SERVER_RESOURCES_FILES: Resource files of RAD Server Console, default value "/etc/ems/objrepos".
+  - DB_DRIVER: driver database using to migrations.
+  - DB_HOST: Host database using to migrations.
+  - DB_PORT: Port database using to migrations.
+  - DB_DATABASE: Name database using to migrations.
+  - DB_USER: User database using to migrations.
+  - DB_PASSWORD: Password database using to migrations.
+  - DB_MIGRATE_ENABLE: Enabled migrate to database.
+  - DB_MIGRATE_PATH: Migrations locale path to migrations in database.

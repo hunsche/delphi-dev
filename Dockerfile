@@ -3,21 +3,26 @@ LABEL maintainer "matheus.arendt.hunsche@gmail.com"
 RUN apt-get -y update \
     && apt-get -y upgrade \
     && apt-get -y install \
-        curl \
-        unzip \
-        build-essential \
-        zlib1g-dev \
-        libcurl3 \
-        libcurl4-gnutls-dev \
-        xterm \
-        libpq5 \
+    curl \
+    unzip \
+    build-essential \
+    zlib1g-dev \
+    libcurl3 \
+    libcurl4-gnutls-dev \
+    xterm \
+    libpq5 \
     && ln -s /usr/lib/x86_64-linux-gnu/libpq.so.5 /usr/lib/x86_64-linux-gnu/libpq.so \
     && apt-get -y autoremove \
     && apt-get -y autoclean
 ADD . /tmp
 RUN cd tmp \
+    && curl -L \
+    https://github.com/golang-migrate/migrate/releases/download/v3.4.0/migrate.linux-amd64.tar.gz > \
+    /tmp/migrate.tar.gz \
+    && tar -xzvf migrate.tar.gz \
+    && mv migrate.linux-amd64 /usr/bin/migrate \
     && curl -L http://altd.embarcadero.com/download/interbase/2017/latest/InterBase_2017_EN.zip > \
-        interbase.zip \
+    interbase.zip \
     && unzip interbase.zip \
     && chmod +x ib_install_linux_x86_64.bin \
     && ./ib_install_linux_x86_64.bin -i silent -r /tmp/output || true \
@@ -30,8 +35,8 @@ RUN cd tmp \
     && ./ems_install.sh \
     && ln -s /usr/lib/ems/EMSDevConsoleCommand /usr/bin/ems-console \
     && curl -L \
-        https://github.com/maxcnunes/waitforit/releases/download/v2.2.0/waitforit-linux_amd64 > \
-        /usr/bin/waitforit \
+    https://github.com/maxcnunes/waitforit/releases/download/v2.2.0/waitforit-linux_amd64 > \
+    /usr/bin/waitforit \
     && chmod +x /usr/bin/waitforit \
     && mv /tmp/start.sh ~/ \
     && sed -i -e 's/\r$//' ~/start.sh \

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ "$DB_MIGRATE_ENABLE" == "true" ]; then
+  migrate -path $DB_MIGRATE_PATH -database "$DB_DRIVER://$DB_HOST:$DB_PORT/$DB_DATABASE?sslmode=disable&password=$DB_PASSWORD&user=$DB_USER" up
+fi
+
 cp /etc/ems/objrepos/emsserver.ini /etc/ems/
 sed -i 's/\[!DBINSTANCENAME\]/'"$RAD_SERVER_DB_INSTANCENAME"'/' /etc/ems/emsserver.ini
 sed -i 's@\[!DBPATH\]@'"$RAD_SERVER_DB_PATH"'@' /etc/ems/emsserver.ini

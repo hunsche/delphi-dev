@@ -11,6 +11,7 @@ RUN apt-get -y update \
     libcurl4-gnutls-dev \
     xterm \
     libpq5 \
+    libmongoc-1.0-0 \
     && ln -s /usr/lib/x86_64-linux-gnu/libpq.so.5 /usr/lib/x86_64-linux-gnu/libpq.so \
     && apt-get -y autoremove \
     && apt-get -y autoclean

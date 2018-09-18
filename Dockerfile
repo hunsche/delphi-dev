@@ -13,6 +13,8 @@ RUN apt-get -y update \
     libpq5 \
     libmongoc-1.0-0 \
     && ln -s /usr/lib/x86_64-linux-gnu/libpq.so.5 /usr/lib/x86_64-linux-gnu/libpq.so \
+    && ln -s /usr/lib/x86_64-linux-gnu/libmongoc-1.0.so.0 /usr/lib/x86_64-linux-gnu/libmongoc-1.0.so \
+    && ln -s /usr/lib/x86_64-linux-gnu/libbson-1.0.so.0 /usr/lib/x86_64-linux-gnu/libbson-1.0.so \
     && apt-get -y autoremove \
     && apt-get -y autoclean
 ADD . /tmp

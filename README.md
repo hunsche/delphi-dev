@@ -1,4 +1,4 @@
-# DEPRECATED use https://github.com/HashLoad/delphi-dev
+# ⛔️ DEPRECATED use https://github.com/HashLoad/delphi-dev
 
 This project requires the tools:
   
